@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+  <div class="activtity" style="padding-bottom:70px;">
+    <div class="admin-wrap layui-form goods-page">
+      <div id="pageData">
+        <script id="pageTpl" type="text/html">
+          <fieldset class="layui-elem-field" >
+            <legend>商品属性</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="goodsName" value="{{if goods}}{{goods.goodsName}}{{/if}}" lay-verify="required" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">商品描述</label>
+                <div class="layui-input-block">
+                  <textarea name="goodsDesc" placeholder="请输入内容" class="layui-textarea">{{if goods}}{{goods.goodsDesc}}{{/if}}</textarea>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">渠道来源</label>
+                  <div class="layui-input-inline">
+                    <select name="channelId" id="channelId" lay-filter="channel" lay-verify="required">
+                      <option value="">请选择</option>
+                      {{each channelList}}
+                      <option value="{{$value.id}}">{{$value.channelName}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  <div class="layui-form-mid">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">商品品类</label>
+                  <div class="layui-input-inline" style="width: 128px;">
+                    <select name="goodsLevelOneVarieties" lay-verify="required" lay-filter="topCate" id="goodsLevelOneVarieties">
+                      <option value="">请选择</option>
+                      {{each varietiesList}}
+                      <option value="{{$value.value}}">{{$value.name}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  <div class="layui-input-inline" style="width: 128px;">
+                    <select name="goodsLevelTwoVarieties" disabled id="goodsLevelTwoVarieties">
+                      <option value="">请选择</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">产品图示<br/>（列表页）</label>
+                <div class="layui-input-block">
+                  <ul class="imageUploaderBox" id="listPagePicList">
+                  </ul>
+                  <input type="hidden" name="listPagePic" lay-verify="listPagePic" id="listPagePicInput" value="">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label"> 产品图示<br/>（详情页）</label>
+                <div class="layui-input-block">
+                  <ul class="imageUploaderBox" id="detailPagePicList">
+                  </ul>
+                  <input type="hidden" name="detailPagePic" lay-verify="detailPagePic" id="detailPagePicInput" value="">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">市场价</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="marketPrice" value="{{if goods}}{{goods.marketPrice}}{{/if}}" lay-verify="required" placeholder="市场价" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid">元</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">商品售价</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="goodsWorth" value="{{if goods}}{{goods.goodsWorth}}{{/if}}" lay-verify="required" placeholder="商品售价" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid">元</div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">平台进货价</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="platPurchasePrice" value="{{if goods}}{{goods.platPurchasePrice}}{{/if}}" lay-verify="required" placeholder="平台进货价" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid">元</div>
+                </div>
+              </div> 
+              <div class="layui-form-item" style="margin-bottom:0;">
+                <label class="layui-form-label">售罄自动下架</label>
+                <div class="layui-input-block">
+                  <input type="radio" name="isAutomatic" value="1" title="是" {{if goods}}{{if goods.isAutomatic == 1}}checked{{/if}}{{else}}checked{{/if}}>
+                  <input type="radio" name="isAutomatic" value="0" title="否" {{if goods}}{{if goods.isAutomatic == 0}}checked{{/if}}{{/if}}>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="layui-elem-field">
+            <legend>商品参数</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">品牌国籍</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="brandCradle" value="{{if sjgoodsParams}}{{sjgoodsParams.brandCradle}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">类别</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="cateName" value="{{if sjgoodsParams}}{{sjgoodsParams.cateName}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">英文名</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="enName" value="{{if sjgoodsParams}}{{sjgoodsParams.enName}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">归属</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="parentCompany" value="{{if sjgoodsParams}}{{sjgoodsParams.parentCompany}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">规格</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="spec" value="{{if sjgoodsParams}}{{sjgoodsParams.spec}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">适用人群</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="useForCrowd" value="{{if sjgoodsParams}}{{sjgoodsParams.useForCrowd}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">适用部位</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="useForPlace" value="{{if sjgoodsParams}}{{sjgoodsParams.useForPlace}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-inline">
+                  <label class="layui-form-label">适用肤质</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="useForSkin" value="{{if sjgoodsParams}}{{sjgoodsParams.useForSkin}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </fieldset>
+          <fieldset class="layui-elem-field">
+            <legend>商品介绍</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <textarea name="goodsDetail" id="goodsDetail" placeholder="请输入内容" class="layui-textarea" style="height:200px;">{{if goods}}{{goods.goodsDetail}}{{/if}}</textarea> 
+              </div>
+            </div>  
+          </fieldset>
+          <fieldset class="layui-elem-field">
+            <legend>商品图片</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <ul class="imageUploaderBox" id="graphicDetailPicList">
+                </ul>
+                <input type="hidden" name="graphicDetailPic" lay-verify="graphicDetailPic" id="graphicDetailPicInput" value=""> 
+              </div>
+            </div>  
+          </fieldset>
+        </script>
+      </div> 
+
+      <div id="channelConfigData">
+        <script id="channelConfigTpl" type="text/html">
+          <fieldset class="layui-elem-field">
+            <legend>物流及售后</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <label class="layui-form-label">物流配送</label>
+                <div class="layui-input-inline">
+                  <input type="text" placeholder="物流配送" value="{{logisticsDelivery}}" class="layui-input" readonly>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">平台保障</label>
+                <div class="layui-input-block">
+                  <ul class="tagbox">
+                    {{each platGuaranteeList}}
+                    <li class="tag tagSel">{{$value.name}}</li>
+                    {{/each}}
+                  </ul>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">售后服务</label>
+                <div class="layui-input-block">
+                  <textarea id="remarkEditor" placeholder="请输入内容" class="layui-textarea" style="height:200px;" readonly>{{remark}}</textarea>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </script>
+      </div>  
+      
+      <input type="hidden" name="type" id="pageType">
+      <input type="hidden" name="id" id="pageId">
+      <div class="qbm-form-btn">
+        <button class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="goodSubmit">提交</button>
+        <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+      </div>
+    </div>
+    
+  </div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/goods.js"></script> 
+</body>
+</html>

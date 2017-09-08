@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>钱保姆后台管理系统</title>
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="bookmark" href="/favicon.ico" />
+	<link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+	<link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+
+<body>
+	<div class="admin-wrap">
+		<blockquote class="layui-elem-quote">
+			<form action="">
+				<div class="layui-field-box layui-form dp-flex flex-jc-e" style="padding: 0;">
+					<div class="layui-form-item" style="margin: 0;">
+						<div class="layui-inline">
+							<label class="layui-form-label">时间范围</label>
+							<div class="layui-input-inline" style="width: 120px;">
+								<input type="text" id="startTime" name="startTime" placeholder="" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid">-</div>
+							<div class="layui-input-inline" style="width: 120px;">
+								<input type="text" id="endTime" name="endTime" placeholder="" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">商品名称</label>
+							<div class="layui-input-inline" style="width: 140px;">
+								<input type="text" name="searchName" id="seachInput" placeholder="商品名称" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">渠道来源</label>
+							<div class="layui-input-inline" style="width: 120px;">
+								<select name="channelId" id="channelSelect">
+									<option value="">请选择</option>
+									<option value="" selected="">全部</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">商品品类</label>
+							<div class="layui-input-inline" style="width: 100px;">
+								<select name="level_one" id="varietiesSelect" lay-filter='varietiesSelect'>
+									<option value="">请选择</option>
+									<option value="" selected="">全部</option>
+								</select>
+							</div>
+							<div class="layui-input-inline" style="width: 100px;">
+								<select name="level_two" id="varietiesSelect2" disabled>
+									<option value="">请选择</option>
+									<option value="" selected="">全部</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button lay-filter="search" class="layui-btn" lay-submit>查询</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</blockquote>
+		<table class="layui-table admin-table" lay-even>
+			<thead>
+				<tr>
+					<th >序号</th>
+					<th>商品</th>
+					<th>商品售价（元）</th>
+					<th>平台进货价（元）</th>
+					<th>渠道</th>
+					<th>品类</th>
+					<th>销量</th>
+					<th>收益（元）</th>
+				</tr>
+			</thead>
+			<tbody id="content">
+				<script id="listTpl" type="text/html">
+                    {{each dataList}}
+                    <tr>
+	                    <td>{{$value.id}}</td>
+						<td>{{$value.goodsName}}</td>
+						<td>{{$value.goodsWorth}}</td>
+						<td>{{$value.platPurchasePrice}}</td>
+						<td>{{$value.channelName}}</td>
+						<td>{{$value.varietiesName}}</td>
+						<td>{{$value.sales}}</td>
+						<td>{{$value.profit}}</td>
+                    </tr>
+                    {{/each}}
+                </script>
+			</tbody>
+		</table>
+		<div id="paged" class="page"></div>
+		<button class="layui-btn layui-btn-normal exportBtn">导出结果</button>
+	</div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="/statics/js/page/module/zeroBuy/transactionAnalysis/list.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{
+    "result": true,
+    "msg": "获取成功",
+    "code": 1,
+    "name": "尚装",
+    "icon": "",
+    "logistics": [
+        {
+            "label": "代发货",
+            "value": "111"
+        }
+    ],
+    "guarantees":[
+        {
+            "label": "PICC承保",
+            "value": "1",
+            "isChecked": true
+        },
+        {
+            "label": "免费配送",
+            "value": "2",
+            "isChecked": true
+        },
+        {
+            "label": "90天退换货",
+            "value": "3",
+            "isChecked": false
+        }
+    ],
+    "explain": ""
+}

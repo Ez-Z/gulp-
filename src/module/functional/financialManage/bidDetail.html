@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>钱保姆后台管理系统</title>
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="bookmark" href="/favicon.ico" />
+	<link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+	<link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+
+<body>
+	<div class="admin-wrap">
+		<blockquote class="layui-elem-quote">
+			<button class="layui-btn layui-btn-normal exportBtn">导出结果</button>
+		</blockquote>
+		<fieldset class="layui-elem-field">
+		  	<div class="layui-field-box layui-form dp-flex flex-jc-e" style="padding: 10px;">
+			    <form action="">
+					<div class="layui-form-item" style="margin: 0;">
+						<div class="layui-inline">
+							<label class="layui-form-label">时间范围</label>
+							<div class="layui-input-inline" style="width: 150px;">
+								<input type="text" id="startTime" name="startTime" placeholder="" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid">-</div>
+							<div class="layui-input-inline" style="width: 150px;">
+								<input type="text" id="endTime" name="endTime" placeholder="" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">筛选</label>
+							<div class="layui-input-inline" style="width: 240px;">
+								<input type="text" name="searchName" id="seachInput" placeholder="项目名称/商品名称/用户手机号" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">标状态</label>
+							<div class="layui-input-inline" style="">
+								<select name="borrowStatus" id="borrowSelect">
+									<option value="">请选择</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">渠道来源</label>
+							<div class="layui-input-inline" style="">
+								<select name="channelId" id="channelSelect">
+									<option value="">请选择</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">商品品类</label>
+							<div class="layui-input-inline" style="">
+								<select name="" id="varietiesSelect" lay-filter='varietiesSelect'>
+									<option value="">请选择</option>
+								</select>
+							</div>
+							<div class="layui-input-inline" style="">
+								<select name="level_two" id="varietiesSelect2" disabled>
+									<option value="">请选择</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button lay-filter="search" class="layui-btn" lay-submit>查询</button>
+						</div>
+					</div>
+				</form>
+		  	</div>
+		</fieldset>
+		<table class="layui-table admin-table" lay-even>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>项目标的</th>
+					<th>项目金额（元）</th>
+					<th>标状态</th>
+					<th>复审时间</th>
+					<th>借款期限</th>
+					<th>投资金额（元）</th>
+					<th>利率</th>
+					<th>现金利息（元）</th>
+					<th>商品收益率</th>
+					<th>商品收益</th>
+					<th>商品售价（元）</th>
+					<th>平台进货价（元）</th>
+					<th>商品名称</th>
+					<th>渠道</th>
+					<th>品类</th>
+					<th>购买用户</th>
+					<th>下单时间</th>
+				</tr>
+			</thead>
+			<tbody id="dataList">
+				<script id="listTpl" type="text/html">
+                    {{each dataList}}
+                    <tr>
+	                    <td>{{$value.id}}</td>
+						<td>{{$value.borrowName}}</td>
+						<td>{{$value.itemAmount}}</td>
+						<td>{{$value.borrowStatus}}</td>
+						<td>{{$value.verifyTime | dateFormatFun:5}}</td>
+						<td>{{$value.timeLimit}}个月</td>
+						<td>{{$value.account}}</td>
+						<td>{{$value.baseApr}}</td>
+						<td>{{$value.profit}}</td>
+						<td>{{$value.goodsProfitRate}}</td>
+						<td>{{$value.goodsProfit}}</td>
+						<td>{{$value.goodsWorth}}</td>
+						<td>{{$value.platPurchasePrice}}</td>
+						<td>{{$value.goodsName}}</td>
+						<td>{{$value.channelName}}</td>
+						<td>{{$value.varietiesName}}</td>
+						<td>{{$value.myPhone}}</td>
+						<td>{{$value.orderTime | dateFormatFun:5}}</td>
+                    </tr>
+                    {{/each}}
+                </script>
+			</tbody>
+		</table>
+		<div id="pageBar" class="clearfix hide">
+			<div class="fn-l page-record">共<span id="totalRecord"></span>条记录</div>
+			<div id="pages" class="fn-r page txt-right"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="/statics/js/page/module/functional/financialManage/bidDetail.js"></script>
+</body>
+
+</html>

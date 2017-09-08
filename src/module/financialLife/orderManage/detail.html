@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>钱保姆后台管理系统</title>
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="bookmark" href="/favicon.ico" />
+	<link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+	<div lay-filter="" id="content" style="padding: 0 20px;">
+		<script id="detailTpl" type="text/html">
+		<blockquote class="layui-elem-quote">当前订单状态：{{logisticsStatus}}</blockquote>
+		<fieldset class="layui-elem-field">
+			<legend>订单信息</legend>
+			<div class="layui-field-box colla-content">
+				<p><label>商品名称：</label>{{goodsName}}</p>
+				<p><span><label>商品型号：</label>{{goodsModel}}</span><span><label>商品颜色：</label>{{goodsColour}}</span></p>
+				<p><span><label>渠道来源：</label>{{channelName}}</span><span><label>商品品类：</label>{{varietiesName}}</span></p>
+				<p><span><label>市场价：</label>{{marketPrice}}</span><span><label>买家姓名：</label>{{realname}}</span></p>
+				<p><label>手机号：</label>{{phone}}</p>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>订单编号：{{orderNo}}</p>
+					<p>下单时间：{{orderTime | dateFormatFun:1}}</p>
+					{{if sendTime}}<p>发货时间：{{sendTime | dateFormatFun:1}}</p>{{/if}}
+					{{if overTime}}<p>完成时间：{{overTime | dateFormatFun:1}}</p>{{/if}}
+				</blockquote>
+			</div>
+		</fieldset>
+		<fieldset class="layui-elem-field">
+			<legend>投资信息</legend>
+			<div class="layui-field-box colla-content">
+				<p><span><label>状态：</label>{{tenderStatus}}</span><span><label>到期时间：</label>{{repayTime | dateFormatFun:1}}</span></p>
+				<p><span><label>项目名称：</label>{{name}}</span><span><label>项目类别：</label>{{borrowType}}</span></p>
+				<p><span><label>项目期限：</label>{{timeLimit}}</span><span><label>预期年化：</label>{{yearApr}}</span></p>
+				<p><span><label>购买金额：</label>{{account}}</span><span><label>购买时间：</label>{{addtime | dateFormatFun:1}}</span></p>
+				<p><span><label>现金收益：</label>{{moneyProfit}}</span><span><label>还款方式：</label>{{style}}</span></p>
+				<p><label>保全码：</label>{{recordNo}}</p>
+			</div>
+		</fieldset>
+		<fieldset class="layui-elem-field">
+			<legend>收货与物流信息</legend>
+			<div class="layui-field-box colla-content">
+				<div id="logisticsInfo">
+					<p>
+						<span>
+							<label>收货人姓名：</label>
+							{{myRealname}}
+						</span>
+						<span>
+							<label>手机号：</label>
+							{{myPhone}}
+						</span>
+					</p>
+					<p>
+						<label>收货地址：</label>
+						{{myAddr}}
+					</p>
+					{{if logisticsStatus=='待发货'}}<p><button class="layui-btn layui-btn-normal" id="changeBtn">修改发货信息</button></p>{{/if}}
+				</div>
+				{{if logisticsStatus=='待发货'}}
+				<div id='editLogisticsInfo' style="display: none;">
+					<p>
+						<span>
+							<label>收货人姓名：</label>
+							<input type="text" id="myRealname" value="{{myRealname}}">
+						</span>
+						<span>
+							<label>手机号：</label>
+							<input type="text" id="myPhone" value="{{myPhone}}">
+						</span>
+					</p>
+					<p>
+						<label>收货地址：</label>
+						<input type="text" id="myAddr" value="{{myAddr}}" style="width: 600px;">
+					</p>
+					<p><button class="layui-btn layui-btn-normal" id="sendBtn">保存</button></p>
+				</div>
+				{{/if}}
+				<p>
+					<label>物流状态：</label>
+					暂无
+				</p>
+				{{if sjLogisticsCompany}}
+				<p>
+					<label>物流公司：</label>
+					{{sjLogisticsCompany}}
+				</p>
+				<p>
+					<label>运单号：</label>
+					{{sjOrderNumber}}
+				</p>
+				<p>
+					<label>物流跟踪：</label>
+					暂无
+				</p>
+				{{/if}}
+			</div>
+		</fieldset>
+		</script>
+	</div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="/statics/js/page/module/zeroBuy/orderManage/detail.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>钱保姆后台管理系统</title>
+	<meta name="renderer" content="webkit">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="bookmark" href="/favicon.ico" />
+	<link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+	<div lay-filter="" id="content" style="padding: 0 20px 68px 20px;">
+		<script id="detailTpl" type="text/html">
+		<form class="layui-form" action="">
+			<fieldset class="layui-elem-field">
+				<legend>收货信息</legend>
+				<div class="layui-field-box colla-content">
+					<p>
+						<label>收货人姓名：</label>
+						{{myRealname}} {{myPhone}}
+					</p>
+					<p>
+						<label>收货地址：</label>
+						{{myAddr}}
+					</p>
+				</div>
+			</fieldset>
+			{{if sjLogisticsCompany}}
+				<fieldset class="layui-elem-field">
+					<legend>物流信息</legend>
+					<div class="layui-field-box colla-content">
+						<p>
+							<label>物流公司：</label>
+							{{sjLogisticsCompany}}
+						</p>
+						<p>
+							<label>运单号：</label>
+							{{sjOrderNumber}}
+						</p>
+					</div>
+				</fieldset>
+				<div style="padding: 5px 0 0px 20px;" id="countDown"></div>
+				<div style="padding: 5px 0 0px 20px;"><span class="txt-red">*</span> 操作确认收货前请确保商品已被签收</div>
+			{{else}}
+				<fieldset class="layui-elem-field">
+					<legend>填写物流信息</legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">物流公司：</label>
+								<div class="layui-input-inline">
+									<input type="tel" name="sjLogisticsCompany" lay-verify="sjOrderNumber" class="layui-input">
+									<!-- <select name="sjLogisticsCompany">
+										<option value="">请选择省</option>
+										<option value="顺丰速运" selected="">顺丰速运</option>
+										<option value="韵达快递">韵达快递</option>
+										<option value="圆通快递">圆通快递</option>
+									</select> -->
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">运单号：</label>
+								<div class="layui-input-inline">
+									<input type="tel" name="sjOrderNumber" lay-verify="sjOrderNumber" class="layui-input">
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+			{{/if}}
+			<div class="qbm-form-btn">
+				<span class="layui-btn layui-btn-normal" id="channelSubmit" lay-submit lay-filter="channelSubmit" type="submit">
+				{{if sjLogisticsCompany}}确定{{else}}提交{{/if}}
+				</span>
+				<span class="layui-btn layui-btn-primary" id="cancelBtn">取消</span>
+			</div>
+		</form>
+		</script>
+		</div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+	<script type="text/javascript" src="/statics/js/page/module/zeroBuy/orderManage/logistics.js"></script>
+</body>
+
+</html>

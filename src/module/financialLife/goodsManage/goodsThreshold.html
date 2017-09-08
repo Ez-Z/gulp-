@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body id="framePage">
+  <div class="admin-wrap">
+    <div class="layui-form">
+      <div id="pageData">
+        <script id="pageTpl" type="text/html">
+          <div class="layui-form-item">
+            <label class="layui-form-label">投资期限</label>
+            <div class="layui-input-inline" style="width:90px;">
+              <input type="text" name="tenderLimit" value="{{if goodsThreshold}}{{goodsThreshold.tenderLimit}}{{/if}}" lay-verify="" placeholder="投资期限" autocomplete="off" class="layui-input" id="tenderLimit">
+            </div>
+            <div class="layui-form-mid">个月</div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">基础年化</label>
+            <div class="layui-input-inline">
+              <input type="text" name="baseApr" value="{{if goodsThreshold}}{{goodsThreshold.baseApr}}{{/if}}" lay-verify="" placeholder="项目基础年化" autocomplete="off" class="layui-input" id="baseApr">
+            </div>
+            <div class="layui-form-mid">%</div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">现金收益率</label>
+            <div class="layui-input-inline">
+              <input type="text" name="moneyProfitRate" value="{{if goodsThreshold}}{{goodsThreshold.moneyProfitRate}}{{/if}}" placeholder="现金收益率" autocomplete="off" class="layui-input" readonly id="moneyProfitRate">
+            </div>
+            <div class="layui-form-mid">%</div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">投资本金</label>
+            <div class="layui-input-inline" style="width:100px;">
+              <input type="text" name="tenderAccount" value="{{if goodsThreshold}}{{goodsThreshold.tenderAccount}}{{/if}}"  lay-verify="" placeholder="投资本金" autocomplete="off" class="layui-input" id="tenderAccount">
+            </div>
+            <div class="layui-form-mid">元<span class="layui-word-aux">(建议投资本金：<span id="suggestTenderAccount"></span>元)</span></div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">现金收益</label>
+            <div class="layui-input-inline">
+              <input type="text" placeholder="现金收益" value="{{if goodsThreshold}}{{goodsThreshold.moneyProfit}}{{/if}}" autocomplete="off" class="layui-input" id="moneyProfitRead" readonly>
+              <input type="hidden" name="moneyProfit" value="{{if goodsThreshold}}{{goodsThreshold.moneyProfit}}{{/if}}" id="moneyProfit" alt="现金收益">
+            </div>
+            <div class="layui-form-mid">元</div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">默认展示</label>
+            <div class="layui-input-block">
+              <input type="radio" name="isShow" value="1" title="是" {{if goodsThreshold}}{{if goodsThreshold.isShow == 1}}checked{{/if}}{{else}}checked{{/if}}>
+              <input type="radio" name="isShow" value="0" title="否" {{if goodsThreshold}}{{if goodsThreshold.isShow == 0}}checked{{/if}}{{/if}}>
+            </div>
+          </div>
+        </script>
+      </div>
+      <input type="hidden" name="id" id="pageId">
+      <input type="hidden" name="type" id="pageType">
+      <input type="hidden" name="goodsId" id="goodsIdVal">
+      <input type="hidden" name="goodsProfitRate" id="goodsProfitRate">
+      <div class="qbm-form-btn">
+        <button class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="submit">提交</button>
+        <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/goodsThreshold.js"></script>
+</body>
+</html>

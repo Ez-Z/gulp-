@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body id="framePage">
+  <div class="admin-wrap">
+    <div class="layui-form" action="">
+      <div class="layui-form-item">
+        <label class="layui-form-label">商品ID</label>
+        <div class="layui-input-block">
+          <textarea name="skuIds" lay-verify="required" placeholder="批量导入商品,请填写商品id,使用“,”分隔商品id" class="layui-textarea" style="height:150px;"></textarea>
+        </div>
+      </div>      
+      <div class="qbm-form-btn">
+        <span class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="submit">提交</span>
+        <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/goodsBatch.js"></script>
+</body>
+</html>

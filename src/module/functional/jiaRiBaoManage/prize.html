@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body id="framePage">
+  <div class="prize-pageFrame">
+    <div class="admin-wrap">
+      <div class="layui-form">
+        <div class="layui-form-item">
+          <label class="layui-form-label">奖品类型</label>
+          <div class="layui-input-inline">
+            <select name="rewardType" lay-filter="rewardType" lay-verify="required" id="rewardType">
+              <option value="">请选择</option>
+              <option value="0">实物</option>
+              <option value="1">虚拟</option>
+              <option value="2">红包</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">奖品名称</label>
+            <div class="layui-input-inline">
+              <input type="text" name="name" lay-verify="required" placeholder="奖品名称" class="layui-input" id="name">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">奖品权重</label>
+            <div class="layui-input-inline">
+              <input type="text" name="level" lay-verify="required" placeholder="奖品权重" class="layui-input" value="1" id="level" style="width:90px;">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item hide" id="amountItem">
+          <label class="layui-form-label">红包金额</label>
+          <div class="layui-input-inline">
+            <input type="text" name="amount" value="0" placeholder="红包金额" autocomplete="off" class="layui-input" id="amount">
+          </div>
+          <div class="layui-form-mid">元</div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">奖品个数</label>
+          <div class="layui-input-inline">
+            <input type="text" name="total" lay-verify="required" placeholder="奖品个数" class="layui-input" id="total">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">预告页面主题大奖图</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="heraldImageUploader">
+            </section>
+            <div class="posr picPrivew hide" id="heraldImagePrivew">
+              <img src="" id="heraldImageImg">
+              <input type="hidden" name="heraldImage" lay-verify="heraldImage" id="heraldImageVal"/>
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">礼盒内奖品展示</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="giftImageUploader">
+            </section>
+            <div class="posr picPrivew hide" id="giftImagePrivew">
+              <img src="" id="giftImageImg">
+              <input type="hidden" name="giftImage" lay-verify="giftImage" id="giftImageVal"/>
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">中奖概率</label>
+          <div class="layui-input-inline" style="width: 110px;">
+            <input type="text" name="winningOdds" lay-verify="required" placeholder="该奖品中奖概率" class="layui-input" id="winningOdds">
+          </div>
+          <div class="layui-form-mid">%</div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">展示时间</label>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="showStartTime" id="startTime1" placeholder="开始时间" autocomplete="off" class="layui-input" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="showEndTime" id="endTime1" placeholder="结束时间" autocomplete="off" class="layui-input" readonly>
+            </div>
+            <div class="layui-form-mid layui-word-aux">（从预告时间起）</div>
+          </div>
+        </div>
+
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">抽奖起始门槛</label>
+          <div class="layui-input-inline">
+            <input type="text" name="initialNumber" lay-verify="required" placeholder="抽奖起始门槛" class="layui-input" id="initialNumber">
+          </div>
+        </div>
+
+
+        <div class="layui-form-item" id="prizeIssued">
+          <label class="layui-form-label">奖品发放</label>
+          <div class="layui-form-mid">每</div>
+          <div class="layui-input-inline" style="width: 80px;">
+            <input type="text" name="timeInterval" class="layui-input" lay-verify="required" id="timeInterval">
+          </div>
+          <div class="layui-form-mid">分钟，抽</div>
+          <div class="layui-input-inline" style="width: 80px;">
+            <input type="text" name="intervalGiftNum" class="layui-input" lay-verify="required" id="intervalGiftNum">
+          </div>
+          <div class="layui-form-mid">份该奖品</div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">生效时间</label>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="validStartTime" id="startTime" placeholder="开始时间" autocomplete="off" class="layui-input" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="validEndTime" id="endTime" placeholder="结束时间" autocomplete="off" class="layui-input" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item" id="addOddsBox">
+          <label class="layui-form-label">增加概率</label>
+          <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="addOdds" placeholder="每投资一笔增加的概率" class="layui-input" id="addOdds">
+          </div>
+          <div class="layui-form-mid">%</div>
+        </div>
+        <div class="layui-form-item" id="upperOddsBox">
+          <label class="layui-form-label">概率最高值</label>
+          <div class="layui-input-inline" style="width: 150px;">
+            <input type="text" name="upperOdds" placeholder="概率最高值" class="layui-input" id="upperOdds">
+          </div>
+          <div class="layui-form-mid">%</div>
+        </div>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">必中次数</label>
+          <div class="layui-input-inline">
+            <input type="text" name="mustWin" lay-verify="required" placeholder="必中次数" class="layui-input" id="mustWin">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">每个用户最多可获得</label>
+          <div class="layui-input-inline">
+            <input type="text" name="mostWin" lay-verify="required" placeholder="每个用户最多可获得" class="layui-input" id="mostWin">
+          </div>
+        </div>
+
+
+
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">奖品介绍</label>
+          <div class="layui-input-block">
+            <textarea name="remark" placeholder="奖品介绍" class="layui-textarea" id="remark"></textarea>
+          </div>
+        </div>
+        <input type="hidden" name="type" value="" id="pageType" />
+        <input type="hidden" name="giftType" value="" id="giftType" />
+        <input type="hidden" name="nid" value="" id="pageNid" />
+        <input type="hidden" name="id" value="0" id="pageId" />
+        <div class="qbm-form-btn">
+          <button class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="">提交</button>
+          <button class="layui-btn layui-btn-primary" id="cancleBtn">取消</button>
+        </div>
+      </div>
+  	</div>
+  </div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/plugins/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="/statics/plugins/uploadify/jquery.uploadify.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/functional/jiaRiBaoManage/prize.js"></script>
+</body>
+</html>

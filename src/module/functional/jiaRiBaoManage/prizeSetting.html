@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+
+</head>
+<body id="framePage">
+  <div class="activtity-pageFrame">
+    <div class="admin-wrap">
+      <form class="layui-form setting-form" action="" id="setting-form">
+        <fieldset class="layui-elem-field">
+          <legend>主题大奖</legend>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">解锁条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[0].unlockType" class="selectBox" lay-verify="required" lay-filter="bigPrizeVal" id="bigPrizeVal">
+                  <option value="">请选择</option>
+                </select>
+              </div>
+            </div>
+            <div id="bigPrizeBox">
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[0].unlockLower" placeholder="金额" class="layui-input" id="bigPrizeUnlockLower">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[0].unlockUpper" placeholder="金额" class="layui-input" id="bigPrizeUnlockUpper">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">增加抽奖条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[0].addCountType" id="">
+                  <option value="">请选择</option>
+                  <option value="tender_single" selected>抽奖单笔</option>
+                </select>
+              </div>
+            </div>
+            <div id="">
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[0].lowerLimit" placeholder="金额" class="layui-input" lay-verify="required" id="bigPrizeLowerLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[0].upperLimit" placeholder="金额" class="layui-input" id="bigPrizeUpperLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <fieldset class="layui-elem-field layui-field-title" id="bigPrizeList" style="margin:0 15px;">
+            <legend>奖品列表</legend>
+            <div class="layui-field-box">
+              <div class="txt-right"><a href="javascript:;" class="layui-btn layui-btn-small prizeOptBtn" data-type="add" data-giftType="1" title="添加奖品"><i class="layui-icon"></i></button></a></div>
+              <table class="layui-table">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>个数</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="bigPrizeDataList">
+                  <script id="bigPrizeTpl" type="text/html">
+                    {{each giftList}}
+                    <tr>
+                      <td>{{$value.name}}</td>
+                      <td width="100">{{$value.total}}</td>
+                      <td width="130">
+                        <div class="layui-btn-group">
+                          <span class="layui-btn layui-btn-small prizeOptBtn" data-id="{{$value.id}}" data-type="edit" data-giftType="1"><i class="layui-icon"></i>修改</span>
+                          <span class="layui-btn layui-btn-danger layui-btn-small layui-btn-danger  prizeOptBtn" data-id="{{$value.id}}" data-type="delete" data-giftType="1" data-name="{{$value.name}}"><i class="layui-icon"></i>删除</span>
+                        </div>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </script>
+                </tbody>
+              </table>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="layui-elem-field">
+          <legend>主题小奖</legend>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">解锁条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[1].unlockType" class="selectBox" lay-verify="required" lay-filter="smallPrizeVal" id="smallPrizeVal">
+                  <option value="">请选择</option>
+                </select>
+              </div>
+            </div>
+            <div id="smallPrizeBox">
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[1].unlockLower" placeholder="金额" class="layui-input" id="smallPrizeUnlockLower">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[1].unlockUpper" placeholder="金额" class="layui-input" id="smallPrizeUnlockUpper">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">增加抽奖条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[1].addCountType" id="">
+                  <option value="">请选择</option>
+                  <option value="tender_single" selected>抽奖单笔</option>
+                </select>
+              </div>
+            </div>
+            <div id="">
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[1].lowerLimit" placeholder="金额" lay-verify="required" class="layui-input" id="smallPrizeLowerLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[1].upperLimit" placeholder="金额" class="layui-input" id="smallPrizeUpperLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <fieldset class="layui-elem-field layui-field-title" id="smallPrizeList" style="margin: 0 15px;">
+            <legend>奖品列表</legend>
+            <div class="layui-field-box">
+              <div class="txt-right"><a href="javascript:;" class="layui-btn layui-btn-small prizeOptBtn" data-type="add" data-giftType="2" title="添加奖品"><i class="layui-icon"></i></button></a></div>
+              <table class="layui-table">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>个数</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="smallPrizeDataList">
+                  <script id="smallPrizeTpl" type="text/html">
+                    {{each giftList}}
+                    <tr>
+                      <td>{{$value.name}}</td>
+                      <td width="100">{{$value.total}}</td>
+                      <td width="130">
+                        <div class="layui-btn-group">
+                          <span class="layui-btn layui-btn-small prizeOptBtn" data-id="{{$value.id}}" data-type="edit" data-giftType="2"><i class="layui-icon"></i>修改</span>
+                          <span class="layui-btn layui-btn-danger layui-btn-small layui-btn-danger prizeOptBtn" data-id="{{$value.id}}" data-type="delete" data-giftType="2" data-name="{{$value.name}}"><i class="layui-icon"></i>删除</span>
+                        </div>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </script>
+                </tbody>
+              </table>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="layui-elem-field">
+          <legend>普通奖品</legend>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">解锁条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[2].unlockType" class="selectBox" lay-verify="required" lay-filter="generalPrizeVal" id="generalPrizeVal">
+                  <option value="">请选择</option>
+                </select>
+              </div>
+            </div>
+            <div id="generalPrizeBox">
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[2].unlockLower" placeholder="金额" class="layui-input" id="generalPrizeUnlockLower">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">满足上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[2].unlockUpper" placeholder="金额" class="layui-input" id="generalPrizeUnlockUpper">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-field-box layui-input-inline" style="vertical-align:top;">
+            <div class="layui-form-item">
+              <label class="layui-form-label">增加抽奖条件</label>
+              <div class="layui-input-inline">
+                <select name="listModel[2].addCountType" id="">
+                  <option value="">请选择</option>
+                  <option value="none" selected>无条件</option>
+                </select>
+              </div>
+            </div>
+            <div id="">
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资下限（≥）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[2].lowerLimit" placeholder="金额" lay-verify="required" class="layui-input" id="generalPrizeLowerLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">投资上限（＜）</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="listModel[2].upperLimit" placeholder="金额"  class="layui-input" id="generalPrizeUpperLimit">
+                </div>
+                <div class="layui-form-mid">元</div>
+              </div>
+            </div>
+          </div>
+          <fieldset class="layui-elem-field layui-field-title" id="generalPrizeList" style="margin: 0 15px;">
+            <legend>奖品列表</legend>
+            <div class="layui-field-box">
+              <div class="txt-right"><a href="javascript:;" class="layui-btn layui-btn-small prizeOptBtn" data-type="add" data-giftType="0" title="添加奖品"><i class="layui-icon"></i></button></a></div>
+              <table class="layui-table">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>个数</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="generalPrizeDataList">
+                  <script id="generalPrizeTpl" type="text/html">
+                    {{each giftList}}
+                    <tr>
+                      <td>{{$value.name}}</td>
+                      <td width="100">{{$value.total}}</td>
+                      <td width="130">
+                        <div class="layui-btn-group">
+                          <span class="layui-btn layui-btn-small prizeOptBtn" data-id="{{$value.id}}" data-type="edit" data-giftType="0"><i class="layui-icon"></i>修改</span>
+                          <span class="layui-btn layui-btn-danger layui-btn-small layui-btn-danger prizeOptBtn" data-id="{{$value.id}}" data-type="delete" data-giftType="0" data-name="{{$value.name}}"><i class="layui-icon"></i>删除</span>
+                        </div>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </script>
+                </tbody>
+              </table>
+            </div>
+          </fieldset>
+        </fieldset>
+        <input type="hidden" name="type" value="" id="pageType" />
+        <input type="hidden" name="nid" value="" id="pageNid" />
+        <input type="hidden" name="listModel[0].giftType" value="1" title="大奖"/>
+        <input type="hidden" name="listModel[1].giftType" value="2" title="小奖"/>
+        <input type="hidden" name="listModel[2].giftType" value="0" title="普通"/>
+        <input type="hidden" name="listModel[0].id" value="" title="大奖ID" id="bigPrizeId"/>
+        <input type="hidden" name="listModel[1].id" value="" title="小奖ID" id="smallPrizeId"/>
+        <input type="hidden" name="listModel[2].id" value="" title="普通ID" id="generalPrizeId"/>
+        <div class="qbm-form-btn">
+          <span class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="">提交</span>
+          <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+        </div>
+      </form>
+  	</div>
+  </div>
+	<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/plugins/artTemplate/template.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/functional/jiaRiBaoManage/prizeSetting.js"></script>
+</body>
+</html>

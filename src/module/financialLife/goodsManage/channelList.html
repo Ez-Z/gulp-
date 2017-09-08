@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>钱保姆后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" />
+    <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+    <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <blockquote class="layui-elem-quote" style="overflow: hidden;">
+            <form class="layui-form" action="">
+                
+                <span class="layui-btn cateBtn" data-type="add"><i class="layui-icon">&#xe654;</i>&nbsp;新增</span>
+                <div class="layui-form-item" style="margin:0;float: right;">
+                    <div class="layui-input-inline">
+                        <input type="text" name="searchName" id="seachInput" placeholder="输入渠道名进行搜索" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <button class="layui-btn" lay-submit lay-filter="searchSubmit">查询</button>
+                    </div>
+                </div>
+            </form>
+        </blockquote>
+        <table class="layui-table admin-table" lay-even>
+            <thead>
+                <tr>
+                    <th width="60">编号</th>
+                    <th>渠道名</th>
+                    <th width="80">状态</th>
+                    <th width="80">操作</th>
+                </tr>
+            </thead>
+            <tbody id="dataList">
+                <script id="listTpl" type="text/html">
+                    {{each dataList}}
+                    <tr>
+                        <td>{{$value.id}}</td>
+                        <td>{{$value.channelName}}</td>
+                        <td class="layui-form">
+                            <input type="checkbox" name="aa" lay-skin="switch" lay-filter="status" data-id="{{$value.id}}" {{if $value.status==0}}checked{{/if}} lay-text="启用|禁用">
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="layui-btn layui-btn-mini cateBtn" data-type="edit" data-id="{{$value.id}}"><i class="layui-icon"></i>编辑</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </script>
+                
+            </tbody>
+        </table>
+        <div id="pages" class="page txt-right"></div>
+    </div>
+    <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+    <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/channelList.js"></script>
+</body>
+
+</html>

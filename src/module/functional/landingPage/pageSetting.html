@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+  <div class="activtity" style="padding-bottom:70px;">
+    <div class="admin-wrap layui-form landing-page">
+      <div id="pageData">
+        <script id="pageTpl" type="text/html">
+          <fieldset class="layui-elem-field" >
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">类别</label>
+                  <div class="layui-input-inline">
+                    <select name="typeId" id="typeId" lay-filter="type" lay-verify="required">
+                      <option value="">请选择</option>
+                      {{each linkageList}}
+                      <<option value="{{$value.value}}">{{$value.name}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">名称</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="name" value="{{if regpageConfig}}{{regpageConfig.name}}{{/if}}" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">落地页头图</label>
+                <div class="layui-input-block">
+                  <ul class="imageUploaderBox" id="headPicList"></ul>
+                  <input type="hidden" name="headPic" lay-verify="headPic" id="headPicInput" value="">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">落地页底图</label>
+                <div class="layui-input-block">
+                  <ul class="imageUploaderBox" id="bottomPicList"></ul>
+                  <input type="hidden" name="bottomPic" lay-verify="bottomPic" id="bottomPicInput" value="">
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <label class="layui-form-label">增加邀请人</label>
+                <div class="layui-input-block">
+                  <input type="radio" name="showInviter" value="1" title="是" {{if regpageConfig}}{{if regpageConfig.showInviter == 1}}checked{{/if}}{{else}}checked{{/if}}>
+                  <input type="radio" name="showInviter" value="0" title="否" {{if regpageConfig}}{{if regpageConfig.showInviter == 0}}checked{{/if}}{{/if}}>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">渠道名称</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="sourceName" value="{{if regpageConfig}}{{regpageConfig.sourceName}}{{/if}}" lay-verify="required" placeholder="渠道名称" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">渠道标识</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="sourceType" value="{{if regpageConfig}}{{regpageConfig.sourceType}}{{/if}}" lay-verify="required" placeholder="渠道标识" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">注册红包金额</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="money" value="{{if regpageConfig}}{{regpageConfig.money}}{{/if}}" lay-verify="required" placeholder="注册红包金额" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="layui-elem-field">
+            <legend>颜色配置</legend>
+            <div class="layui-field-box">
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">页面背景</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="backgroundColor" lay-verify="backgroundColor" value="{{if regpageConfig}}{{regpageConfig.backgroundColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">验证码字体颜色</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="verifyColor" lay-verify="required" value="{{if regpageConfig}}{{regpageConfig.verifyColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">验证码底图颜色</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="bottomColor" lay-verify="required" value="{{if regpageConfig}}{{regpageConfig.bottomColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">立即注册button颜色</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="buttonColor" lay-verify="required" value="{{if regpageConfig}}{{regpageConfig.buttonColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">立即注册字体颜色</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="fontColor" lay-verify="required" value="{{if regpageConfig}}{{regpageConfig.fontColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+              <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">注册协议字体颜色</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="agreementColor" lay-verify="required" value="{{if regpageConfig}}{{regpageConfig.agreementColor}}{{/if}}" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+              <textarea name="remark" placeholder="备注" autocomplete="off" class="layui-textarea" id="remark">{{if regpageConfig}}{{regpageConfig.remark}}{{/if}}</textarea>
+            </div>
+          </div>
+        </script>
+      </div>
+      <!-- <input type="hidden" name="link" value="{{if regpageConfig}}{{regpageConfig.remark}}{{/if}}" id="link"> -->
+      <input type="hidden" name="type" id="pageType">
+      <input type="hidden" name="id" id="pageId">
+      <div class="qbm-form-btn">
+        <button class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="Submit">提交</button>
+        <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+      </div>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/functional/landingPage/pageSetting.js"></script>
+</body>
+</html>

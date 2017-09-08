@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>钱保姆后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" />
+    <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+    <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+
+<body id="framePage">
+    <div class="activtity-pageFrame">
+        <div class="admin-wrap">
+            <form class="layui-form" id="myForm">
+                <div id="content">
+                    <script id="editTpl" type="text/html">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">渠道名称：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="channelName" lay-verify="channelName" autocomplete="off" placeholder="渠道名称" class="layui-input" id="channelName" value="{{if channelConfig}}{{channelConfig.channelName}}{{/if}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item aaa">
+                            <label class="layui-form-label">渠道icon：</label>
+                            <div class="layui-input-block">
+                                <ul class="imageUploaderBox" id="channelIconList">
+                                    
+                                </ul>
+                                <input type="hidden" name="channelIcon" lay-verify="channelIcon" id="channelIconInput" value="">
+                            </div>
+                        </div>
+                        <div class="layui-form-item aaa">
+                            <label class="layui-form-label">商家icon：</label>
+                            <div class="layui-input-block">
+                                <ul class="imageUploaderBox" id="sellerIconList"></ul>
+                                <input type="hidden" name="sellerIcon" lay-verify="sellerIcon" id="sellerIconInput" value="">
+                            </div>
+                        </div>
+                        <div class="layui-form-item aaa">
+                            <label class="layui-form-label">渠道范围：</label>
+                            <div class="layui-input-inline">
+                                <select name="channelScope" lay-verify="required" id="channelScope">
+                                    <option value="">请选择</option>
+                                    <option value="1">全国</option>
+                                    <option value="2">杭州</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">物流配送：</label>
+                            <div class="layui-input-inline">
+                                <select name="logisticsDeliveryId" class="selectBox" lay-verify="required" lay-filter="smallPrizeVal" id="logistics" selected="selected">
+                                    {{each logisticsdeliveryList}}
+                                    <option value="{{$value.value}}" {{if channelConfig}}{{if channelConfig.logisticsDeliveryId== $value.value}}selected{{/if}}{{/if}}>{{$value.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">平台保障：</label>
+                            <div class="layui-input-block">
+                                <ul class="tagbox">
+                                    {{each guaranteeList}}
+                                    <li class="tag {{if $value.status==1}}tagSel{{/if}}" data-num="{{$value.value}}">{{$value.name}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <input name="platGuarantee" id="guarantees" type="hidden" lay-verify="guarantees" value="{{each guaranteeList}}{{if $value.status==1}}{{$value.value}},{{/if}}{{/each}}" class="layui-input" style="display: none;">
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">售后说明：</label>
+                            <div class="layui-input-block">
+                                <textarea name="remark" id="remarkEditor" placeholder="请输入内容" class="layui-textarea" style="height:200px;">{{if channelConfig}}{{channelConfig.remark}}{{/if}}</textarea> 
+                            </div>
+                        </div>
+                    </script>
+                </div>
+                <input type="hidden" name="type" value="" id="pageType" />
+                <input type="hidden" name="id" value="" id="pageid" />
+                <div class="qbm-form-btn">
+                    <span class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="channelSubmit" type="submit">提交</span>
+                    <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+    <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/channelEdit.js"></script>
+</body>
+
+</html>

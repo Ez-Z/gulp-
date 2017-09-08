@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+	.uploadArea {
+		display: flex;
+	}
+
+	.addArea {
+		position: relative;
+		width: 100px;
+		height: 100px;
+		border: 1px solid #aaa;
+	}
+
+	.addArea p {
+		position: absolute;
+		width: 100px;
+		font-size: 30px;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.fileInput {
+		opacity: 0;
+		height: 100px;
+		width: 100px;
+	}
+
+	.progress {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin-top: -2;
+		width: 100px;
+		height: 5px;
+	}
+
+	.previewArea {
+		position: relative;
+		width: 100px;
+		height: 100px;
+		border: 1px solid #aaa;
+		margin-right: 10px;
+	}
+
+	.previewArea img {
+		width: 100px;
+		height: 100px;
+		display: inline-block;
+	}
+
+	.previewArea .deleteImg {
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		width: 15px;
+		height: 15px;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 10px;
+		text-align: center;
+		font-size: 12px;
+		line-height: 12px;
+	}
+	</style>
+</head>
+
+<body>
+	<div class="uploadArea" id="uploadArea"></div>
+
+</body>
+<!-- <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script> -->
+<!-- <script type="text/javascript" src="./upload.js"></script> -->
+<script type="text/javascript" src="/statics/plugins/jquery-2.2.3.min.js"></script>
+<script>
+	(function(window) {
+		function uploadImg(opt) {
+			this.index = 1;
+			this.limit = 3;
+			this.size = 10000000;
+			this.data = null
+			// console.log(opt);
+			this.init(opt);
+			this.listen(opt);
+		}
+		uploadImg.prototype = {
+			init: function(opt) {
+				var _this = this;
+				_this.limit = opt.limit ? opt.limit : _this.limit;
+				_this.size = opt.size ? opt.size : _this.size;
+				_this.url = opt.url;
+				_this.data = opt.data;
+				var html = '<div class="addArea" id="addArea"><p>+</p><input class="fileInput" id="fileInput" type="file" accept=".png,.gif,.jpg,.jepg"></div>';
+				document.querySelector('#' + opt.id).innerHTML = html;
+
+			},
+			listen: function(opt) {
+				document.querySelector('#' + opt.id).querySelector('.addArea').onchange = this.filechecked.bind(this);
+			},
+			filechecked: function() {
+				var _this = this;
+				var files = document.querySelector('#fileInput').files;
+				// console.log(document.querySelector('#fileInput').files);
+				for (var key in files) {
+					if ((typeof files[key]) === 'object') {
+						_this.upload_on(files[key]);
+					}
+
+				}
+			},
+			upload_on: function(file) {
+				var _this = this;
+				if (file.size > _this.size) {
+					alert('图片太大');
+					return false;
+				}
+				if (file && _this.index <= _this.limit) {
+					var ind = _this.index;
+					var previewArea = document.createElement('div');
+					previewArea.setAttribute('class', 'previewArea previewArea' + ind);
+					previewArea.innerHTML = '<progress class="progress progress' + ind + '" value="0" max="100"></progress>';
+
+					var addArea = document.querySelector('.addArea');
+					document.querySelector('.uploadArea').insertBefore(previewArea, addArea);
+
+					var del = document.createElement('span');
+					del.innerText = 'x';
+					del.setAttribute('class', 'deleteImg');
+
+					del.onclick = function() {
+						_this.deleteImg(previewArea);
+					};
+
+					previewArea.appendChild(del);
+
+					_this.handleImageFile(file, ind);
+					_this.upload(file, ind);
+					_this.index++;
+					if (_this.index == _this.limit + 1) {
+						addArea.style.display = 'none';
+					}
+				}
+			},
+			deleteImg: function(previewArea) {
+				var _this = this;
+				_this.index--;
+				console.log(_this.index);
+				previewArea.remove();
+				document.querySelector('.addArea').style.display = 'block';
+			},
+			handleImageFile: function(file, index) {
+				var previewArea = document.querySelector('.previewArea' + index);
+				var img = document.createElement('img');
+				img.file = file;
+				previewArea.appendChild(img);
+
+				var reader = new FileReader();
+				reader.onload = (function(aImg) {
+					return function(e) {
+						aImg.src = e.target.result;
+					}
+				})(img);
+				reader.readAsDataURL(file);
+			},
+			upload: function(file, index) {
+				var _this = this;
+				var data = _this.data;
+				var xhr = new XMLHttpRequest();
+				var formData = new FormData();
+				formData.append('myFile' + index, file);
+				$.ajax({
+					url: _this.url,
+					type: "post",
+					data: formData,
+					contentType: false,
+					processData: false,
+					dataType: 'json',
+					success: function(res) {
+						console.log(res);
+					},
+					error: function() {
+						// that.msg('请求上传接口出现异常');
+						// error(index);
+					}
+				});
+				// xhr.open("POST", _this.url);
+				//          xhr.withCredentials = true;
+				// // xhr.setRequestHeader("Content-type", "multipart/form-data;boundary=------");
+				// xhr.upload.onprogress = function(event) {
+				// 	if (event.lengthComputable) {
+				// 		var percentComplete = (event.loaded / event.total) * 100;
+				// 		document.querySelector('.progress' + index).value = percentComplete;
+				// 	}
+				// }
+				// xhr.onload = function(){
+				// 	if(this.status === 200){
+				// 		//对请求成功的处理
+				// 		console.log(this);
+				// 		// let data = JSON.parse(this.responseText);
+				// 		console.log(this.responseText);
+				// 	}else{
+
+				// 	}
+				// }
+				// xhr.send(formData);
+				// xhr = null;
+			}
+		}
+		return window.uploadImg = uploadImg;
+	})(window)
+
+var UploadImg = new uploadImg({
+	id: 'uploadArea',
+	url: 'http://192.168.188.7:8085/photoUpload.html',
+	data: { "folder": "\\imageTest" },
+	limit: 5,
+	size: 10000000,
+});
+</script>
+
+</html>

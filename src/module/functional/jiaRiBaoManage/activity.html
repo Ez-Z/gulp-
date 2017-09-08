@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body id="framePage">
+  <div class="activtity-pageFrame">
+    <div class="admin-wrap">
+      <form class="layui-form" id="myForm">
+        <div class="layui-form-item">
+          <label class="layui-form-label">活动主题</label>
+          <div class="layui-input-block">
+            <input type="text" name="activityName"  lay-verify="title" autocomplete="off" placeholder="活动主题" class="layui-input" id="activityName">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">活动玩法</label>
+          <div class="layui-input-inline">
+            <select name="lotteryType"  lay-filter="activityStyle" id="activityStyles">
+              <option value="">请选择活动玩法</option>
+              <option value="zhuanpan" class="zhuanpan">转盘</option>
+              <option value="lihe" class="lihe">礼盒</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">活动预告</label>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="trailerStartTime"  placeholder="开始时间" autocomplete="off" class="layui-input" id="trailerStartTime" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="trailerEndTime"  placeholder="结束时间" autocomplete="off" class="layui-input" id="trailerEndTime" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">活动时间</label>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="timeStart" placeholder="开始时间"  autocomplete="off" class="layui-input" id="timeStart" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 150px;">
+              <input type="text" name="timeEnd" placeholder="结束时间"  autocomplete="off" class="layui-input" id="timeEnd" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="hide-input">
+        <div class="layui-form-item">
+          <label class="layui-form-label">首页预告banner</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="heraldBannerUploader">
+            </section>
+            <div class="posr picPrivew hide" id="heraldBannerPrivew">
+              <img src="" id="heraldBannerImg">
+              <input type="hidden" name="heraldBanner" lay-verify="heraldBanner" id="heraldBannerVal"/>
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">预告主题banner</label>
+          <div class="layui-input-inline">
+            <section>
+              <input type="file" class="layui-upload-file" id="heraldTitleBannerUploader">
+            </section>
+            <div class="posr picPrivew hide" id="heraldTitleBannerPrivew">
+              <img src="" id="heraldTitleBannerImg">
+              <input type="hidden" name="heraldTitleBanner" lay-verify="heraldTitleBanner" id="heraldTitleBannerVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">进行中banner</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="titleIntroduceBannerUploader">
+            </section>
+            <div class="posr picPrivew hide" id="titleIntroduceBannerPrivew">
+              <img src="" id="titleIntroduceBannerImg">
+              <input type="hidden" name="titleIntroduceBanner" lay-verify="titleIntroduceBanner" id="titleIntroduceBannerVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">发现banner</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="displayBannerUploader">
+            </section>
+            <div class="posr picPrivew hide" id="displayBannerPrivew">
+              <img src="" id="displayBannerImg">
+              <input type="hidden" name="displayBanner" lay-verify="displayBanner" id="displayBannerVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+         <label class="layui-form-label">活动规则</label>
+         <div class="layui-input-block">
+           <textarea name="activityRlue" id="activityRlueEditor" placeholder="请输入内容" class="layui-textarea" style="height:200px;">
+              <p>1.活动时间：5月28日-5月30日、6月3日-6月4日；</p>
+              <p>2.活动期间11:00-20:00为假日宝“整点购”开抢时间，您只要在开抢之后10分钟内购买金额达1000元的假日宝项目，就能获得一次抽取上海迪士尼两天一夜亲子游的机会（含上海迪士尼乐园酒店+亲子套票），多买多得，每个时间段将抽取1名幸运用户；</p>
+              <p>4.活动期间11:00-20:00为假日宝“整点购”开抢时间，您只要在开抢之后X分钟内购买金额达N元的假日宝项目，就能获得一次抽取xxxx奖品机会，多买多得，每个时间段将抽取M名幸运用户；</p>
+              <p>3.同一时间段，您在假日宝开抢时间内购买的笔数越多，大奖的抽中机会越大；</p>
+              <p>4.活动期间，您在不同整点购买假日宝项目，将获得对应整点的大奖抽取机会。</p>
+              <p>5.登录分享得抽奖机会，登陆后将此活动分享至朋友圈，即可获得一次转转盘机会，活动期间最多可获得一次分享得转转盘机会。</p>
+              <p>6.本活动由钱保姆提供，与设备生产商Apple Store无关；</p>
+              <p>*钱保姆保留对本次活动在法律允许范围内的解释权</p>
+           </textarea>
+         </div>
+       </div>
+       <div class="hide-input">
+        <div class="layui-form-item">
+          <label class="layui-form-label">页面背景</label>
+          <div class="layui-input-inline">
+            <input type="text" name="backgroundColor" lay-verify="backgroundColor" placeholder="页面背景颜色" autocomplete="off" class="layui-input" id="backgroundColor">
+          </div>
+          <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">标题文案</label>
+          <div class="layui-input-inline">
+            <input type="text" name="titleTextColor"   placeholder="标题文案颜色"  autocomplete="off" class="layui-input" id="titleTextColor">
+          </div>
+          <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">标题底色</label>
+          <div class="layui-input-inline">
+            <input type="text" name="titleBackgroundColor"  placeholder="标题底色"  autocomplete="off" class="layui-input" id="titleBackgroundColor">
+          </div>
+          <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">按键1底色</label>
+          <div class="layui-input-inline">
+            <input type="text" name="button1BackgroundColor"  placeholder="按键1底色"  autocomplete="off" class="layui-input" id="button1BackgroundColor">
+          </div>
+          <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">按键2底色</label>
+          <div class="layui-input-inline">
+            <input type="text" name="button2BackgroundColor"  placeholder="按键2底色" autocomplete="off" class="layui-input" id="button2BackgroundColor">
+          </div>
+          <div class="layui-form-mid layui-word-aux">（例：#FFF000）</div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">右侧分享图标</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="lotteryBackgroundUploader">
+            </section>
+            <div class="posr picPrivew hide" id="lotteryBackgroundPrivew">
+              <img src="" id="lotteryBackgroundImg">
+              <input type="hidden" name="lotteryBackground" lay-verify="lotteryBackground" id="lotteryBackgroundVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="hide-input">
+        <div class="layui-form-item">
+          <label class="layui-form-label">转盘背景</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="turntableBackgroundUploader">
+            </section>
+            <div class="posr picPrivew hide" id="turntableBackgroundPrivew">
+              <img src="" id="turntableBackgroundImg">
+              <input type="hidden" name="turntableBackground" lay-verify="turntableBackground" id="turntableBackgroundVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">分享标题</label>
+            <div class="layui-input-inline">
+              <input type="text" name="shareTitle" placeholder="分享标题"  autocomplete="off" class="layui-input" id="shareTitle">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">分享摘要</label>
+          <div class="layui-input-block">
+            <textarea name="shareContent" placeholder="分享摘要内容"  autocomplete="off" class="layui-textarea" id="shareContent"></textarea>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">分享渠道</label>
+          <div class="layui-input-block">
+            <input type="checkbox" name="Wechat" title="微信" value="1" lay-skin="primary" id="Wechat">
+            <input type="checkbox" name="Timeline" title="朋友圈"  value="1" lay-skin="primary" id="Timeline">
+            <input type="checkbox" name="QQ" title="QQ" value="1" lay-skin="primary" id="QQ">
+            <input type="checkbox" name="QZone" title="QQ空间" value="1" lay-skin="primary" id="QZone">
+            <input type="checkbox" name="SMS" title="短信" value="1" lay-skin="primary" id="SMS">
+            <input type="checkbox" name="Weibo" title="新浪微博" value="1" lay-skin="primary" id="Weibo">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">分享小图标</label>
+          <div class="layui-input-block">
+            <section>
+              <input type="file" class="layui-upload-file" id="shareIcoUploader">
+            </section>
+            <div class="posr picPrivew hide" id="shareIcoPrivew">
+              <img src="" id="shareIcoImg">
+              <input type="hidden" name="shareIco" lay-verify="shareIco" id="shareIcoVal" />
+              <span class="posb layui-btn layui-btn-danger layui-btn-mini closeBtn" alt="删除图片">X</span>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">备注</label>
+          <div class="layui-input-block">
+            <textarea name="remark" placeholder="备注" autocomplete="off" class="layui-textarea" id="remark"></textarea>
+          </div>
+        </div>
+        <input type="hidden" name="type" value="" id="pageType"/>
+        <input type="hidden" name="nid" value="" id="pageNid" />
+        <input type="hidden" name="status" value="0" id="pageStatus" />
+        <input type="hidden" name="activityType" value="" id="activityType" />
+        <div class="qbm-form-btn">
+          <button class="layui-btn layui-btn-normal" id="submitBtn" lay-submit lay-filter="activitySubmit">提交</button>
+          <span class="layui-btn layui-btn-primary" id="cancleBtn">取消</span>
+        </div>
+      </form>
+
+  	</div>
+  </div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/plugins/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="/statics/plugins/uploadify/jquery.uploadify.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/functional/jiaRiBaoManage/activity.js"></script>
+</body>
+</html>

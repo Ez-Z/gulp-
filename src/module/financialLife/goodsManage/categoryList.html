@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+  <div class="admin-wrap">
+    <blockquote class="layui-elem-quote">
+      <span class="layui-btn operationBtn" data-type="add"><i class="layui-icon">&#xe654;</i>&nbsp;新增</span>
+      <div class="fn-r layui-form">
+        <div class="layui-form-item">
+          <div class="layui-input-inline">
+            <input type="text" name="searchName" placeholder="请输入品类名进行搜索" autocomplete="off" class="layui-input">
+          </div>
+          <div class="layui-input-inline">
+            <select name="searchType" id="searchType">
+              <option value="">请选择</option>
+            </select>
+          </div>
+          <div class="layui-input-inline" style="width: auto;">
+            <button lay-filter="search" class="layui-btn" lay-submit><i class="layui-icon">&#xe615;</i> 查询</button>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+
+    <table class="layui-table admin-table" lay-even>
+      <thead>
+        <tr>
+          <th width="90">编号</th>
+          <th>品类名称</th>
+          <th>父级品类</th>
+          <th>状态</th>
+          <th width="120">操作</th>
+        </tr>
+      </thead>
+      <tbody id="dataList">
+        <!--模板-->
+        <script id="listTpl" type="text/html">
+          {{each dataList}}
+          <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.varietiesName}}</td>
+            <td>{{$value.superVarietiesName}}</td>
+            <td class="layui-form" width="80">
+              <input type="checkbox" name="aa" lay-skin="switch" lay-filter="status" value="{{$value.id}}" lay-text="开启|禁用" {{if $value.status==0}}checked{{/if}}>
+            </td>
+            <td width="100">
+              <span class="layui-btn layui-btn-small operationBtn" data-type="edit" data-id="{{$value.id}}"><i class="layui-icon"></i>修改</span>
+            </td>
+          </tr>
+          {{/each}}
+        </script>
+      </tbody>
+    </table>
+    <div id="pageBar" class="hide">
+			<div class="fn-l page-record">共<span id="totalRecord"></span>条记录</div>
+			<div id="pages" class="fn-r page txt-right"></div>
+		</div>
+	</div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/financialLife/goodsManage/categoryList.js"></script>
+</body>
+</html>

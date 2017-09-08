@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+  <title>钱保姆后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="screen" />
+  <link rel="stylesheet" href="/statics/css/qbm-manage.css" media="screen" />
+</head>
+<body>
+  <div class="admin-wrap">
+    <blockquote class="layui-elem-quote">
+      <span class="layui-btn optBtn" data-type="add"><i class="layui-icon">&#xe654;</i>&nbsp;新增</span>
+      <div class="layui-form fn-r">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">落地页名称</label>
+            <div class="layui-input-inline">
+              <input type="text" name="pageName" autocomplete="off" placeholder="输入落地页名称" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">渠道名称</label>
+            <div class="layui-input-inline">
+              <input type="text" name="channelName" autocomplete="off" placeholder="输入渠道名称" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">类别</label>
+            <div class="layui-input-inline">
+              <select name="searchType" id="searchType">
+                <option value="">请选择</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button lay-filter="search" class="layui-btn" lay-submit><i class="layui-icon">&#xe615;</i> 查询</button>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <table class="layui-table admin-table" lay-even>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>类别</th>
+          <th>渠道名称</th>
+          <th>渠道标识</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="dataList">
+        <!--模板-->
+        <script id="listTpl" type="text/html">
+          {{each dataList}}
+          <tr>
+    				<td>{{$value.id}}</td>
+    				<td>{{$value.name}}</td>
+    				<td>{{$value.typeName}}</td>
+    				<td>{{$value.sourceName}}</td>
+            <td>{{$value.sourceType}}</td>
+    				<td width="160">
+              <div class="layui-btn-group">
+                <!-- <input type="hidden" value="{{$value.link}}" id="link" /> -->
+                <button class="layui-btn layui-btn-small copyBtn" data-clipboard-text="{{wapUrl}}/reg/reg.html?nid={{$value.id}}" data-nid="{{$value.id}}" aria-label="复制成功" data-type="copy">复制链接</button>
+                <button class="layui-btn layui-btn-small optBtn" data-type="edit" data-nid="{{$value.id}}">编辑</button>
+                <button class="layui-btn layui-btn-danger layui-btn-small deleteBtn" data-type="delete" data-nid="{{$value.id}}">删除</button>
+              </div>
+    				</td>
+    			</tr>
+          {{/each}}
+        </script>
+      </tbody>
+    </table>
+    <div id="pageBar" class="hide">
+      <div class="fn-l page-record">共<span id="totalRecord"></span>条记录</div>
+      <div id="pages" class="fn-r page txt-right"></div>
+    </div>
+	</div>
+  <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+  <script type="text/javascript" src="/statics/plugins/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript" src="/statics/js/page/module/functional/landingPage/list.js"></script>
+</body>
+</html>
